@@ -99,7 +99,9 @@ export default function FollowTab({userInfo,receiveOpenFollowTab,tab}){
                     openFollowerResult ? follower &&  follower.filter((e)=> e.name.includes(followerText)).map((a,i)=>
                         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',width:'100%',padding:'10px 20px'}} key={i}>
                             <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                                <img style={{marginRight:'10px', width:'25px'}} src={'https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/' + a.image}></img>
+                                <div style={{width:'25px',height:'25px',borderRadius:'50%',overflow:'hidden',marginRight:'10px'}}>
+                                <img style={{width:'25px'}} src={'https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/' + a.image}></img>
+                                </div>
                                 <span dangerouslySetInnerHTML={{ __html: highlightText(a.name, followerText) }}></span>
                             </div>
                             <img style={{ width:'25px'}} src="https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/option.png"
@@ -108,7 +110,9 @@ export default function FollowTab({userInfo,receiveOpenFollowTab,tab}){
                         </div>) : follower &&  follower.map((a,i)=>
                         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',width:'100%',padding:'10px 20px'}} key={i}>
                             <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                                <img style={{marginRight:'10px', width:'25px'}} src={'https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/' + a.image}></img>
+                                <div style={{width:'25px',height:'25px',borderRadius:'50%',overflow:'hidden',marginRight:'10px'}}>
+                                <img style={{width:'25px'}} src={'https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/' + a.image}></img>
+                                </div>
                                 <span>{a.name}</span>
                             </div>
                             <img style={{ width:'25px'}} src="https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/option.png"
@@ -135,7 +139,9 @@ export default function FollowTab({userInfo,receiveOpenFollowTab,tab}){
                     openFollowingResult ? following &&  following.filter((e)=> e.name.includes(followingText)).map((a,i)=>
                         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',width:'100%',padding:'10px 20px'}} key={i}>
                             <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                                <img style={{marginRight:'10px', width:'25px'}} src={'https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/' + a.image}></img>
+                                <div style={{width:'25px',height:'25px',borderRadius:'50%',overflow:'hidden',marginRight:'10px'}}>
+                                <img style={{width:'25px'}} src={'https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/' + a.image}></img>
+                                </div>
                                 <span dangerouslySetInnerHTML={{ __html: highlightText(a.name, followingText) }}></span>
                             </div>
                             <img style={{ width:'25px'}} src="https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/option.png"
@@ -144,7 +150,9 @@ export default function FollowTab({userInfo,receiveOpenFollowTab,tab}){
                         </div>) : following &&  following.map((a,i)=>
                         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',width:'100%',padding:'10px 20px'}} key={i}>
                             <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                                <img style={{marginRight:'10px', width:'25px'}} src={'https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/' + a.image}></img>
+                                <div style={{width:'25px',height:'25px',borderRadius:'50%',overflow:'hidden',marginRight:'10px'}}>
+                                <img style={{width:'25px'}} src={'https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/' + a.image}></img>
+                                </div>
                                 <span>{a.name}</span>
                             </div>
                             <img style={{ width:'25px'}} src="https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/option.png"
