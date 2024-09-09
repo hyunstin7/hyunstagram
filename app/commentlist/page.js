@@ -38,7 +38,7 @@ export default function CommentList({ a, i, date, session, CloseComment, opencom
         })
         if (res.ok) {
             const writer = await res.json()
-            console.log(writer, '커맨트리스트 작성자 확인')
+
             setWriter(writer)
         }
     }

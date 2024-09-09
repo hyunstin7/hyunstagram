@@ -37,7 +37,6 @@ export default function Login() {
 
     if (result.error) {
       setMessage(result.error);
-      console.log(result,'결과임')
     } else {
       window.location.href = '/'
     }

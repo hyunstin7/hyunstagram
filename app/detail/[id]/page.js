@@ -77,11 +77,6 @@ export default function Detail(props) {
     }, []);
 
 
-    useEffect(()=>{
-        console.log(a)
-    },[a])
-
-
 
     const TouchStart = (e) => setStartPosX(e.touches[0].clientX);
     const TouchMove = (e) => {

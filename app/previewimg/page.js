@@ -17,7 +17,6 @@ export default function PreviewImg({ a, i, d, SetPos, posCopy, pos }) {
         let Copy = pos
         Copy[i] = endPosY
         SetPos(Copy)
-        console.log(pos)
     }, [endPosY])
 
 

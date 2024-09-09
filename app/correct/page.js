@@ -158,7 +158,6 @@ export default function Correct({
                             <p style={{ position: 'absolute', transform: `translate3d(-${(Math.pow(saturation, 1 / 2)) * 50}%,0,0)`, left: `${(Math.pow(saturation, 1 / 2)) * 50}%` }}>{parseInt((Math.pow(saturation, 1 / 2)) * 100 - 100)}</p>
                             <input className="saturation" type="range" min={0} max={100} onChange={(e) => {
                                 setSaturation(0 + Math.pow(e.target.value / 50, 2))
-                                console.log(saturation)
                                 ReceiveCorrectSaturation(i, saturation)
                             }} defaultValue={(Math.pow(currentSaturation, 1 / 2)) * 50} style={{ marginTop: '35px' }} />
                         </div>

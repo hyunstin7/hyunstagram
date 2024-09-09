@@ -17,8 +17,6 @@ const FileUpload = () => {
       })
       setCorrectArr(correctClearArr)
   }
-  console.log(correctClearArr)
-  console.log(correctArr)
   }, [allFiles])
 
   const handleFileChange1 = (e) => {

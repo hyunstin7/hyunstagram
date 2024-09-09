@@ -8,10 +8,6 @@ import Menu from "../menu/page"
 export default function ProfileHeader({user,session}) {
     const [openMenu, setOpenMenu] = useState(false)
     const [userInfo,setUserInfo] = useState(user)
-
-    console.log(userInfo)
-
-
     const receiveOpenMenu = (e) => {
         setOpenMenu(e)
     }

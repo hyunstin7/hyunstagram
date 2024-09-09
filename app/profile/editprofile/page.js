@@ -37,7 +37,6 @@ export default function EditProfile({userInfo,receiveOpenEditProfile,ReceiveReal
     const handleFileChange = useCallback((e) => {
         const newFile = e.target.files[0]
             newFile.preview = URL.createObjectURL(newFile);  // 미리보기 URL 생성
-            console.log(newFile)
         setSelectedFile(newFile);  // 파일 상태 업데이트
         setOpenEditImg(true)
         },[]);

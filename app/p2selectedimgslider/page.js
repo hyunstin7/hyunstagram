@@ -60,7 +60,6 @@ export default function P2SelectedImgSlider({
                 e.target.parentNode.style.opacity = 1
 
                     DeleteImg(i); 
-                    console.log(i,'번째이미지 삭제')
                 },1000)
             }
 
