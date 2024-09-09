@@ -1,0 +1,27 @@
+{
+  "name": "4rum",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@next-auth/mongodb-adapter": "^1.1.3",
+    "aws-sdk": "^2.1683.0",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^4.17.2",
+    "next": "14.2.4",
+    "next-auth": "^4.24.7",
+    "nookies": "^2.5.2",
+    "react": "^18",
+    "react-dom": "^18",
+    "soket.io": "^0.0.1-security",
+    "ws": "^8.18.0"
+  }
+}
