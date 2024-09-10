@@ -15,6 +15,7 @@ export default function Comment({a,session,i,bool1,bool2,writer}){
     let [commentid, setCommentid] = useState()
     let [subcommentlist1,setSubCommentList1] = useState([])
     let [openMainCommentInput,setOpenMainCommentInput] = useState(false)
+    const [blockBtn,setBlockBtn] = useState(true)
     
 
     const CloseComment = (e) => {
@@ -139,17 +140,24 @@ export default function Comment({a,session,i,bool1,bool2,writer}){
                 <div className="input-comment" >
                 <input id="input1" onChange={(e)=>{setSubcomment(e.target.value);}} value={subcomment} style={{ padding : '0 10px'}}></input>
                 <button style={{ marginLeft : '5px', width : 'max-content', display : 'block'}} onClick={async ()=>{
-                   await fetch('/api/subcomment/' + commentid,
-                { 
-                    method : 'POST' ,
-                    headers : {'Content-Type':'application/json'},
-                    body : JSON.stringify({ comment : subcomment})
-                })
-                .then((r)=>r.json())
-                .then((e)=>{ if(e == ''){alert('로그인 이후 이용 가능합니다.')}else{setSubCommentList1(e); 
-                    setSubcomment('')
-                    setOpenMainCommentInput(true)
-                }})
+                    if(blockBtn){
+                        setBlockBtn(false)
+                        await fetch('/api/subcomment/' + commentid,
+                            { 
+                                method : 'POST' ,
+                                headers : {'Content-Type':'application/json'},
+                                body : JSON.stringify({ comment : subcomment})
+                            })
+                            .then((r)=>r.json())
+                            .then((e)=>{ if(e == ''){alert('로그인 이후 이용 가능합니다.')}else{setSubCommentList1(e); 
+                                setSubcomment('')
+                                setOpenMainCommentInput(true)
+                            }})
+                        setTimeout(()=>{
+                                        setBlockBtn(true)
+                                        },1000)
+                    }
+                   
                 }}><p style={{ width : 'max-content', borderRadius : '10px', color : '#fff', fontSize : '30px'}}>▲</p></button>
                 </div>
                 </div>  : null
@@ -162,21 +170,28 @@ export default function Comment({a,session,i,bool1,bool2,writer}){
                 <div className="input-comment" >
                 <input id="input1" onChange={(e)=>{setComment(e.target.value)}} placeholder={writer.name +'님에게 댓글추가'} value={comment} style={{ padding : '0 10px'}} ref={inputRef}></input>
                 <button style={{ marginLeft : '5px', width : 'max-content', display : 'block'}} onClick={async()=>{
-                    await fetch('/api/comment/' + a._id,
-                { 
-                            method: 'POST',
-                            headers: {'Content-Type' : 'application/json'},
-                            body: JSON.stringify({comment,})
-                        })
-                .then((r)=>r.json())
-                .then((e)=>{ if(e == ''){alert('로그인 이후 이용 가능합니다.')}else{setCommentList(e); 
-                    cirdate = e.map((a,i)=>{
-                        return circulaterDate(a)
-                    })
-                    setDate(cirdate)
-                    setComment('')
-                    
-                }})
+                    if(blockBtn){
+                        setBlockBtn(false)
+                        await fetch('/api/comment/' + a._id,
+                            { 
+                                        method: 'POST',
+                                        headers: {'Content-Type' : 'application/json'},
+                                        body: JSON.stringify({comment,})
+                                    })
+                            .then((r)=>r.json())
+                            .then((e)=>{ if(e == ''){alert('로그인 이후 이용 가능합니다.')}else{setCommentList(e); 
+                                cirdate = e.map((a,i)=>{
+                                    return circulaterDate(a)
+                                })
+                                setDate(cirdate)
+                                setComment('')
+                                
+                            }})
+                        setTimeout(()=>{
+                                        setBlockBtn(true)
+                                        },1000)
+                    }
+                   
                 }}><p style={{ width : 'max-content', borderRadius : '10px', color : '#fff', fontSize : '30px'}}>▲</p></button>
                 </div>
                 </div>

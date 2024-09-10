@@ -532,6 +532,7 @@ export default function ListItem({ a, session, i }) {
                                 <input id="input1" onChange={(e) => { setCommentContent(e.target.value) }} placeholder={writer.name + '님에게 댓글추가'} value={commentContent} style={{ padding: '0 10px' }}></input>
                                 <button style={{ marginLeft: '5px', width: 'max-content', display: 'block' }} onClick={async () => {
                                     if(blockBtn){
+                                        setBlockBtn(false)
                                         await fetch('/api/comment/' + a._id,
                                             {
                                                 method: 'POST',
@@ -551,7 +552,6 @@ export default function ListItem({ a, session, i }) {
                                         })
                                         await setCommentContent('')
                                         await setCommentInput(!commentInput)
-                                        setBlockBtn(false)
                                         setTimeout(()=>{
                                         setBlockBtn(true)
 
