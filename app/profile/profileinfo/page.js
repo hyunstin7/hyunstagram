@@ -44,8 +44,8 @@ export default function ProfileInfo({user : initialData,session}){
             }
         <div style={{ display : 'flex', justifyContent : 'space-between', alignItems : 'center', width : '100%', padding : '10px 20px'}}>
             <div style={{ width : '80px', height : '80px', position :'relative'}}>
-            <div style={{ width : '80px', height : '80px', position :'relative',borderRadius : '50%',overflow:'hidden'}}>
-                <img src={'https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/' + userInfo.image} style={{ width : '80px',position:'absolute',top:'50%',left:0,transform:'translate3d(0,-50%,0)'}}/>
+            <div style={{ width : '80px', height : '80px',borderRadius : '50%',overflow:'hidden'}}>
+                <img src={'https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/' + userInfo.image} style={{ width : '80px'}}/>
                 
             </div>
             <img src='https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/plus.png' style={{ width : '25px', position : 'absolute', bottom : 0, right : 0}}/>

@@ -75,8 +75,8 @@ export default function EditProfile({userInfo,receiveOpenEditProfile,ReceiveReal
                 <h4 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate3d(-50%,-50%,0)' }}>내 프로필</h4>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', padding: '100px 30px' }}>
-                <div style={{borderRadius: '50%', overflow: 'hidden',width:'80px',position:'relative',height:'80px'}}>
-                <img src={image} style={{ width: '80px', position:'absolute', top:'50%',left:0,transform:'translate3d(0,-50%,0)' }}></img>
+                <div style={{borderRadius: '50%', overflow: 'hidden',width:'80px',height:'80px'}}>
+                <img src={image} style={{ width: '80px' }}></img>
                 </div>
                 <label className="custom-file-input">
                     <span style={{ width: 'max-content' }}>프로필 사진 수정</span>
