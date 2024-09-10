@@ -39,39 +39,9 @@ export default function ListItem({ a, session, i }) {
 
 
     const [sliderNum, setSliderNum] = useState(0);
-    const [endPosX, setEndPosX] = useState(0);
-    const [startPosX, setStartPosX] = useState(0);
-    const [draggingPosX, setDraggingPosX] = useState(0);
-
-    const TouchStart = (e) => {
-        setStartPosX(e.touches[0].clientX);
-    };
-
-    const TouchMove = (e) => {
-        setDraggingPosX(e.touches[0].clientX - startPosX);
-        e.target.style.transition = "none";
-        e.target.style.transform = `translate3d(${e.touches[0].clientX - startPosX + endPosX}px,0,0)`;
-    };
-
-    const TouchEnd = (e) => {
-        const threshold = window.innerWidth * 0.3;
-        const newSliderNum = draggingPosX < -threshold
-            ? Math.min(sliderNum + 1, a.images.length - 1)
-            : draggingPosX > threshold
-                ? Math.max(sliderNum - 1, 0)
-                : sliderNum;
-        setSliderNum(newSliderNum);
-        document.querySelectorAll(`.list-item${i} .dot`).forEach((a) => a.style.color = '#fff')
-        document.querySelector(`.list-item${i} .dot${newSliderNum}`).style.color = '#295ce9'
-        setEndPosX(-newSliderNum * window.innerWidth);
-        e.target.style.transition = "transform 0.2s ease-out";
-        e.target.style.transform = `translate3d(${endPosX}px,0,0)`;
-    };
-
-    useEffect(() => {
-        setEndPosX(-sliderNum * window.innerWidth);
-    }, [sliderNum]);
-
+   
+   
+    
     useEffect(()=>{
         setFollowBoolean(!followBoolean)
     },[user])
@@ -215,7 +185,34 @@ export default function ListItem({ a, session, i }) {
 
         //     클릭 이벤트 핸들러 함수
 
+        const slide = document.querySelector('.imgslide' + i);
+        const sliders = document.querySelectorAll('.imgslide' + i + ' .imgslider');
+        const dots = document.querySelectorAll('.list-item' + i + ' .dot')
+       
+        
+       
+    
+    if(slide){
+        slide.addEventListener('scroll', () => {
+            const scrollLeft = slide.scrollLeft;
+       
+            // 각 슬라이드의 위치를 계산해서 현재 슬라이드 감지
+            sliders.forEach((slider, index) => {
+              const sliderOffset = slider.offsetLeft;
 
+              // 스크롤이 슬라이드의 중간을 지났는지 확인
+              if (scrollLeft >= sliderOffset - slider.offsetWidth / 2) {
+                setSliderNum(index);
+                const dot = document.querySelector('.list-item' + i + ' .dot' + index)
+
+                dots.forEach((a)=>{
+                    a.style.color = '#fff'
+                })
+                dot.style.color = '#295ce9'
+              }
+            });
+          });
+    }
 
 
 
@@ -282,7 +279,7 @@ export default function ListItem({ a, session, i }) {
 
 
     return (
-        <div className={"list-item" + i + " list-item"} style={{ position: 'relative' }}>
+        <div className={"list-item" + i + " list-item"} style={{ position: 'relative' , flex:'none', scrollSnapAlign:'start'}}>
 
             {
                 openshare &&
@@ -376,21 +373,13 @@ export default function ListItem({ a, session, i }) {
                 </div>
             </div>
 
-            <div className="imgslide-wrap" style={{ width: '100%', overflow: 'hidden', aspectRatio: '1/1', position: 'relative' }}>
-                <div className="imgslide" style={{ display: 'flex', margin: '5px 0', position: 'absolute', top: 0, left: 0, transform: `translate3d(${endPosX}px,0,0)` }}
-                    onDragStart={() => { }}
-                    onDrag={() => { }}
-                    onDragEnd={() => { }}
-                    onTouchStart={(e) => { if (a.images.length > 1) { TouchStart(e) } }}
-                    onTouchMove={(e) => { if (a.images.length > 1) { TouchMove(e) } }}
-                    onTouchEnd={(e) => { if (a.images.length > 1) { TouchEnd(e) } }}
+            <div className="imgslide-wrap" style={{ width: '100%', overflow: 'hidden',  position: 'relative' }}>
+                <div className={'imgslide imgslide' + i} style={{ display: 'flex', margin: '5px 0', overflowX :'scroll', scrollSnapType:'x mandatory', scrollBehavior:'smooth' }}
                 >
 
                     {
                         a.images.map((t, g) =>
-                            <div className={"imgslider" + g} key={g} onTouchStart={(e) => { e.stopPropagation() }} style={{ pointerEvents: 'none', width: '100vw', maxWidth: '576px' }}
-                                onTouchMove={(e) => { e.stopPropagation() }}
-                                onTouchEnd={(e) => { e.stopPropagation() }}>
+                            <div className={"imgslider imgslider" + g} key={g}style={{ pointerEvents: 'none', width: '100vw', maxWidth: '576px',flex:'none',scrollSnapAlign:'center' }}>
                                 <div className="collection-wrap" style={{
                                     width: '100%',
                                     filter:

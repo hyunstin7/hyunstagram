@@ -14,19 +14,21 @@ import Link from "next/link";
 export default async function Home() {
   const session = {}
   const sessioncookie = await getServerSession(authOptions);
+  const db = (await connectDB).db('user');
+  const data = await db.collection('userinfo').findOne({email : sessioncookie.user.email})
+  console.log(data)
   if(!sessioncookie){
     redirect('/login')
   }
 
-  const db = (await connectDB).db('user');
   let user;
   if(sessioncookie){
-    user = await db.collection('userinfo').findOne({email : sessioncookie.user.email})
-
+   data._id = data._id.toString()
+   user = data
   }else{
     user = null
   }
-  session.user = await user
+  session.user = user
 
   const db2 = (await connectDB).db('4rum');
   const list = await db2.collection('post').find().toArray();
@@ -70,7 +72,7 @@ export default async function Home() {
         {session && <Story session={session} />}
       </div>
       <div className="list-bg">
-        {list.map((a, i) => (
+        {list.reverse().map((a, i) => (
           <ListItem a={a} session={session} i={i} key={i} />
         ))}
       </div>
