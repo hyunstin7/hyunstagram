@@ -34,6 +34,7 @@ export default function ListItem({ a, session, i }) {
     let [user,setUser] = useState(session.user)
     const [writer, setWriter] = useState(null)
     const [followBoolean,setFollowBoolean] = useState(false)
+    const [blockBtn,setBlockBtn] = useState(true)
 
     let windowWidth = window.innerWidth
 
@@ -530,25 +531,33 @@ export default function ListItem({ a, session, i }) {
                             <div className="input-comment" >
                                 <input id="input1" onChange={(e) => { setCommentContent(e.target.value) }} placeholder={writer.name + '님에게 댓글추가'} value={commentContent} style={{ padding: '0 10px' }}></input>
                                 <button style={{ marginLeft: '5px', width: 'max-content', display: 'block' }} onClick={async () => {
-                                    await fetch('/api/comment/' + a._id,
-                                        {
-                                            method: 'POST',
-                                            headers: { 'Content-Type': 'application/json' },
-                                            body: JSON.stringify({ comment: commentContent })
+                                    if(blockBtn){
+                                        await fetch('/api/comment/' + a._id,
+                                            {
+                                                method: 'POST',
+                                                headers: { 'Content-Type': 'application/json' },
+                                                body: JSON.stringify({ comment: commentContent })
+                                            })
+                                            .then((r) => r.json())
+                                            .then((result) => {
+                                                setCommentcount(result.length)
+                                            })
+                                        await fetch('/api/comment/list/' + a._id).then((r) => r.json()).then((e) => {
+                                            let email = session.user.email
+                                            let result = e.filter(e => e.author == email)
+                                            setMyCommentList(result);
+    
+    
                                         })
-                                        .then((r) => r.json())
-                                        .then((result) => {
-                                            setCommentcount(result.length)
-                                        })
-                                    await fetch('/api/comment/list/' + a._id).then((r) => r.json()).then((e) => {
-                                        let email = session.user.email
-                                        let result = e.filter(e => e.author == email)
-                                        setMyCommentList(result);
+                                        await setCommentContent('')
+                                        await setCommentInput(!commentInput)
+                                        setBlockBtn(false)
+                                        setTimeout(()=>{
+                                        setBlockBtn(true)
 
-
-                                    })
-                                    await setCommentContent('')
-                                    await setCommentInput(!commentInput)
+                                        },1000)
+                                    }
+                                   
                                 }}><p style={{ width: 'max-content', borderRadius: '10px', color: '#fff', fontSize: '30px' }}>▲</p></button>
                             </div>
                         </div>

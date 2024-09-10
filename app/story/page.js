@@ -5,7 +5,7 @@ export default function Story({session}){
     const [storyOn,setStoryOn] = useState(null)
     const [loading,setLoading] = useState(true)
     
-
+    
     const mountHandler = async () => {
         try{
             const res = await fetch('/api/story/list')
@@ -19,6 +19,20 @@ export default function Story({session}){
     }
     useEffect(()=>{
         mountHandler()
+        let lastScroll = 0;
+        document.querySelector('.home').addEventListener('scroll',(e)=>{
+            const scrollY = e.currentTarget.scrollTop
+            console.log(scrollY)
+            if(scrollY > lastScroll){
+                document.querySelector('.main-header').style.transform = 'translate3d(0,-100%,0)'
+            }else{
+                document.querySelector('.main-header').style.transform = 'translate3d(0,0,0)'
+            lastScroll = scrollY
+
+            }
+            lastScroll = scrollY
+        })
+
     },[])
 
    

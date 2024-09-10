@@ -269,12 +269,12 @@ export default function Write({user}) {
     return (
 
 
-        <div className="ds" style={{ width: '100%', overflow: 'hidden', height: '100vh',position:'relative', background : '#000' }}>
+        <div className="ds" style={{ width: '100%', overflow: 'hidden', height: 'calc(100vh - 55px)',position:'relative', background : '#000', display:'flex',alignItems:'center',flexDirection:'column' }}>
 
             {
                 selectedFiles.length > 0 ?
                     processNum == 1 &&
-                    <div className="write-nav" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative' }} >
+                    <div className="write-nav" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', width:'100%' }} >
                         <img src="https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/reject.png" style={{width:'25px'}} onClick={() => {
                             setProcessNum(processNum - 1)
                             setFilter([])
@@ -289,7 +289,7 @@ export default function Write({user}) {
                         }} >다음</button>
                     </div>
                     :
-                    <div className="write-nav" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative' }} >
+                    <div className="write-nav" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', width:'100%' }} >
                         <img src="https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/reject.png" style={{width:'25px'}} onClick={() => {
                             setProcessNum(processNum - 1)
                             setFilter([])
@@ -300,7 +300,7 @@ export default function Write({user}) {
 
 
             {
-                selectedFiles.length <= 0 && <label className="custom-file-input" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate3d(-50%,-50%,0)' }}>
+                selectedFiles.length <= 0 && <label className="custom-file-input" style={{ width:'max-content',marginTop:'70%'}}>
                     <span style={{ width: 'max-content' }}>이미지를 업로드해주세요</span>
                     <input
                         type="file"
@@ -362,7 +362,7 @@ export default function Write({user}) {
 
             {
                 processNum == 2 &&
-                <div className="write-nav" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative' }} >
+                <div className="write-nav" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative',width:'100%' }} >
                     <img src="https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/reject.png" style={{width:'25px'}} onClick={() => {
                         setProcessNum(processNum - 1)
                         selectedFiles.forEach((a, i) => {
@@ -450,7 +450,7 @@ export default function Write({user}) {
 
                 openFilter == 0 &&
                 <div style={{ position: 'fixed', top: `${openFilter}%`, transition: '.2s 0.1s ease-out', background: '#000', width: '100%', height: '100%' }}>
-                    <div className="write-nav" style={{ position: 'relative', display: 'flex', alignItems: 'center', height: '50px', width: '100vw' }}>
+                    <div className="write-nav" style={{ position: 'relative', display: 'flex', alignItems: 'center', height: '50px', width: '100vw', width:'100%' }}>
                         <img src="https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/reject.png" style={{width:'25px'}} onClick={() => {
                             setOpenfilter(100)
                             setFilterBtn('filter')

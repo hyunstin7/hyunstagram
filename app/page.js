@@ -37,14 +37,14 @@ export default async function Home() {
 
 
   return (
-    <div>
-      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', paddingRight: '10px', marginBottom: '10px' }}>
-        <p className="logo" style={{ background: '#000', padding: '15px', zIndex: '99999999999' }}>
+    <div className="home" style={{height : 'calc(100vh - 55px)', overflowY : 'scroll', scrollBehavior :'smooth'}}>
+      <div className="main-header" style={{ display: 'flex', transition:'transform .3s',background: '#000',width: '100%', justifyContent: 'space-between', alignItems: 'center', paddingRight: '10px', position:'fixed',top:0,left:0, zIndex: '99' }}>
+        <p className="logo" style={{  padding: '15px' }}>
           Hyunstagram
         </p>
        
       </div>
-      <div className={'story-wrap'} style={{ display: 'flex', overflowX: 'scroll' }}>
+      <div className={'story-wrap'} style={{ display: 'flex', overflowX: 'scroll', marginTop:'50px' }}>
         {session ? session.user.story.length > 0 ?
           <div style={{ margin: '0 5px', display: 'flex', width: 'max-content', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'linear-gradient(45deg,  #F58529,  #DD2A7B, #8134AF, #515BD4 )', borderRadius: '50%', padding: '4px' }}>
