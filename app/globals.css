@@ -21,14 +21,14 @@ div {
   display: none;
 }
 
-.list-bg::-webkit-scrollbar {
+.home::-webkit-scrollbar {
   display: none;
 }
 
 .imgslide::-webkit-scrollbar {
   display: none;
-}
 
+}
 
 
 .list-bg {

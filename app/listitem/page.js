@@ -337,7 +337,7 @@ export default function ListItem({ a, session, i }) {
                         <Link href={'/profile/' + writer.name}><h4 style={{ color: '#fff' }}>{writer.name}</h4></Link><p style={{ color: 'grey',fontSize:'14px' }}> · {date}</p>
                         </div>
                 }
-                <div style={{ position: 'relative', display: 'flex', alignItems: 'center', zIndex: '99', justifyContent: 'center' }}>
+                <div style={{ position: 'relative', display: 'flex', alignItems: 'center', zIndex: '9', justifyContent: 'center' }}>
                     {
                         followBoolean ? user && user.email !== a.author ? user.following.filter((e) => e == a.author).length > 0 ? null :
                             <button style={{ padding: '5px 10px', background: '#295ce9', color: '#fff', borderRadius: '5px', marginRight: '10px', fontSize: '12px' }}
@@ -554,7 +554,6 @@ export default function ListItem({ a, session, i }) {
                                         await setCommentInput(!commentInput)
                                         setTimeout(()=>{
                                         setBlockBtn(true)
-
                                         },1000)
                                     }
                                    
