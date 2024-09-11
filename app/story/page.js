@@ -22,13 +22,13 @@ export default function Story({session}){
         let lastScroll = 0;
         document.querySelector('.home').addEventListener('scroll',(e)=>{
             const scrollY = e.currentTarget.scrollTop
-            console.log(scrollY)
             if(scrollY > lastScroll){
                 document.querySelector('.main-header').style.transform = 'translate3d(0,-100%,0)'
+            }else if(scrollY == 0){
+                document.querySelector('.main-header').style.transform = 'translate3d(0,0,0)'
             }else{
                 document.querySelector('.main-header').style.transform = 'translate3d(0,0,0)'
             lastScroll = scrollY
-
             }
             lastScroll = scrollY
         })

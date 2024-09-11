@@ -6,46 +6,44 @@ import ListItem from "./listitem/page";
 import Story from "./story/page";
 import LogOutBtn from "./Logoutbtn";
 import { redirect } from "next/navigation";
-import Link from "next/link";
+import List from "./list/list";
+
 
 
 
 
 export default async function Home() {
+  
   const session = {}
   const sessioncookie = await getServerSession(authOptions);
-  const db = (await connectDB).db('user');
-  const data = await db.collection('userinfo').findOne({email : sessioncookie.user.email})
-  console.log(data)
   if(!sessioncookie){
     redirect('/login')
   }
-
-  let user;
+  const db = (await connectDB).db('user');
+  let user = await db.collection('userinfo').findOne({email : sessioncookie.user.email})
+ 
   if(sessioncookie){
-   data._id = data._id.toString()
-   user = data
+   user._id = user._id.toString()
   }else{
     user = null
   }
   session.user = user
 
-  const db2 = (await connectDB).db('4rum');
-  const list = await db2.collection('post').find().toArray();
+  
  
   
 
 
   return (
     <div className="home" style={{height : 'calc(100vh - 55px)', overflowY : 'scroll', scrollBehavior :'smooth'}}>
-      <div className="main-header" style={{ display: 'flex', transition:'transform .3s',background: '#000',width: '100%', justifyContent: 'space-between', alignItems: 'center', paddingRight: '10px', position:'fixed',top:0,left:0, zIndex: '99' }}>
+      <div className="main-header" style={{ display: 'flex', transition:'transform .3s',background: '#000',width: '100%',maxWidth:'576px', justifyContent: 'space-between', alignItems: 'center', paddingRight: '10px', position:'fixed',top:0, zIndex: '99' }}>
         <p className="logo" style={{  padding: '15px' }}>
           Hyunstagram
         </p>
        
       </div>
       <div className={'story-wrap'} style={{ display: 'flex', overflowX: 'scroll', marginTop:'50px' }}>
-        {session ? session.user.story.length > 0 ?
+        {user ? user.story.length > 0 ?
           <div style={{ margin: '0 5px', display: 'flex', width: 'max-content', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'linear-gradient(45deg,  #F58529,  #DD2A7B, #8134AF, #515BD4 )', borderRadius: '50%', padding: '4px' }}>
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '5px', background: '#000', borderRadius: '50%' }}>
@@ -69,13 +67,10 @@ export default async function Home() {
           </div>
           : null
         }
-        {session && <Story session={session} />}
+        {user && <Story session={session} />}
       </div>
-      <div className="list-bg">
-        {list.reverse().map((a, i) => (
-          <ListItem a={a} session={session} i={i} key={i} />
-        ))}
-      </div>
+        <List session={session}/>
+      
       
     </div>
   );

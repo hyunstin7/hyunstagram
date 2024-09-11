@@ -7,6 +7,7 @@ import CommentList from '../commentlist/page'
 
 export default function Comment({a,session,i,bool1,bool2,writer}){
     let cirdate;
+    const inputRef = useRef(null);
     let [subcomment, setSubcomment] = useState('')
     let [comment, setComment] = useState('')
     let [commentList, setCommentList] = useState([])
@@ -17,16 +18,19 @@ export default function Comment({a,session,i,bool1,bool2,writer}){
     let [openMainCommentInput,setOpenMainCommentInput] = useState(false)
     const [blockBtn,setBlockBtn] = useState(true)
     
-
+    //  댓글창 닫기 감지
     const CloseComment = (e) => {
         setOpenSubCommentInput(e)
         setOpenMainCommentInput(!e)
     }
 
+    // 서브댓글창에서 작성자 이름 수집
     const SubCommentName = (e) => {
         setSubcomment(e)
     }
 
+
+    // 해당댓글 id찾기 서브댓글의 parent에 등록하기위함
     const PushCommentId = (e) => {
         setCommentid(e)
     }
@@ -39,37 +43,74 @@ export default function Comment({a,session,i,bool1,bool2,writer}){
         setOpenSubCommentInput(e)
     }
 
-  
+     //메인 댓글등록
+     const uploadComment = async () => {
+        await fetch('/api/comment/' + a._id,
+            { 
+                        method: 'POST',
+                        headers: {'Content-Type' : 'application/json'},
+                        body: JSON.stringify({comment,})
+                    })
+            .then((r)=>r.json())
+            .then((e)=>{ if(e == ''){alert('로그인 이후 이용 가능합니다.')}else{setCommentList(e); 
+                cirdate = e.map((a,i)=>{
+                    return circulaterDate(a)
+                })
+                setDate(cirdate)
+                setComment('')
+                
+            }})
+    }
 
 
+     //서브 댓글 등록
+    const uploadSubComment = async () => {
+        await fetch('/api/subcomment/' + commentid,
+            { 
+                method : 'POST' ,
+                headers : {'Content-Type':'application/json'},
+                body : JSON.stringify({ comment : subcomment})
+            })
+            .then((r)=>r.json())
+            .then((e)=>{ if(e == ''){alert('로그인 이후 이용 가능합니다.')}else{setSubCommentList1(e); 
+                setSubcomment('')
+                setOpenMainCommentInput(true)
+            }})
+    }
 
-  
+    const mountHandler = async () => {
+        //댓글 등록 날짜 계산
+        const res = await fetch('/api/comment/list/' + a._id)
+        const result = await res.json()
+        if(res.ok){
+            setCommentList(result);
+    
+            cirdate = result.map((a) => {
+                return circulaterDate(a)
+            })
+            setDate(cirdate)
+        }
 
+           //서브댓글목록 가져오기
+    commentid && await fetch('/api/subcomment/list/' + commentid).then((r) => r.json()).then((e) => {
+        setSubCommentList1(e);
+    }) 
+   }
+
+
+    //댓글쓰기 감지될때마다 서브댓글or메인댓글에 따른 input노출
     useEffect(() => {
         setOpenMainCommentInput(bool1)
         setOpenSubCommentInput(bool2)
     }, [bool1,bool2])
 
-    
+
+ 
+
     useEffect(() => {
-        fetch('/api/comment/list/' + a._id).then((r) => r.json()).then((e) => {
-            setCommentList(e);
+       mountHandler()
 
-            cirdate = e.map((a, i) => {
-                return circulaterDate(a)
-            })
-            setDate(cirdate)
-        })
-
-        commentid ? fetch('/api/subcomment/list/' + commentid).then((r) => r.json()).then((e) => {
-            setSubCommentList1(e);
-        }) : null
-
-       
-
-       
-
-
+        // 댓글창열기 이벤트
         function handleClickOutside(event) {
             const modal = document.querySelectorAll('.comment-modal')[i];
             if (modal == event.target) {
@@ -80,35 +121,18 @@ export default function Comment({a,session,i,bool1,bool2,writer}){
                 setOpenMainCommentInput(false)
             }
         }
-
-        // 이벤트 리스너 추가
+        
         window.addEventListener('click', handleClickOutside);
 
-        // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+        // 컴포넌트가 언마운트될 때 댓글창열기 이벤트제거
         return () => {
             window.removeEventListener('click', handleClickOutside);
         };
     }, [])
 
 
-    const inputRef = useRef(null);
-
-    // useEffect(() => {
-    //     // 컴포넌트가 마운트된 후 인풋에 포커스를 맞추기
-    //     if (inputRef.current) {
-    //         inputRef.current.focus(); // 포커스 맞추기
-    //     }
-    // }, [openMainCommentInput]);
-
-
     
 
-
- 
-    
-    
-
-    
 
     return(
         <div className="comment-box" onClick={(e)=>{e.stopPropagation()}}>
@@ -142,17 +166,7 @@ export default function Comment({a,session,i,bool1,bool2,writer}){
                 <button style={{ marginLeft : '5px', width : 'max-content', display : 'block'}} onClick={async ()=>{
                     if(blockBtn){
                         setBlockBtn(false)
-                        await fetch('/api/subcomment/' + commentid,
-                            { 
-                                method : 'POST' ,
-                                headers : {'Content-Type':'application/json'},
-                                body : JSON.stringify({ comment : subcomment})
-                            })
-                            .then((r)=>r.json())
-                            .then((e)=>{ if(e == ''){alert('로그인 이후 이용 가능합니다.')}else{setSubCommentList1(e); 
-                                setSubcomment('')
-                                setOpenMainCommentInput(true)
-                            }})
+                        uploadSubComment()
                         setTimeout(()=>{
                                         setBlockBtn(true)
                                         },1000)
@@ -172,21 +186,7 @@ export default function Comment({a,session,i,bool1,bool2,writer}){
                 <button style={{ marginLeft : '5px', width : 'max-content', display : 'block'}} onClick={async()=>{
                     if(blockBtn){
                         setBlockBtn(false)
-                        await fetch('/api/comment/' + a._id,
-                            { 
-                                        method: 'POST',
-                                        headers: {'Content-Type' : 'application/json'},
-                                        body: JSON.stringify({comment,})
-                                    })
-                            .then((r)=>r.json())
-                            .then((e)=>{ if(e == ''){alert('로그인 이후 이용 가능합니다.')}else{setCommentList(e); 
-                                cirdate = e.map((a,i)=>{
-                                    return circulaterDate(a)
-                                })
-                                setDate(cirdate)
-                                setComment('')
-                                
-                            }})
+                        uploadComment()
                         setTimeout(()=>{
                                         setBlockBtn(true)
                                         },1000)

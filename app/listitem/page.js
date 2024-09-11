@@ -2,14 +2,14 @@
 
 import circulaterDate from "@/util/CirculateDate";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import Comment from '@/app/comment/page'
 import MyCommentList from "../mycommentlist/page";
 
 
 
 
-export default function ListItem({ a, session, i }) {
+const ListItem = forwardRef(({ a, session, i },ref) => {
 
 
     let [myCommentList, setMyCommentList] = useState([])
@@ -40,7 +40,6 @@ export default function ListItem({ a, session, i }) {
 
 
     const [sliderNum, setSliderNum] = useState(0);
-   
    
     
     useEffect(()=>{
@@ -280,7 +279,7 @@ export default function ListItem({ a, session, i }) {
 
 
     return (
-        <div className={"list-item" + i + " list-item"} style={{ position: 'relative' , flex:'none', scrollSnapAlign:'start'}}>
+        <div className={"list-item" + i + " list-item"} ref={ref} style={{ position: 'relative' , flex:'none', scrollSnapAlign:'start'}}>
 
             {
                 openshare &&
@@ -568,4 +567,6 @@ export default function ListItem({ a, session, i }) {
 
         </div>
     )
-}
+})
+
+export default ListItem
