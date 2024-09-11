@@ -16,14 +16,15 @@ export default async function Home() {
   
   const session = {}
   const sessioncookie = await getServerSession(authOptions);
-  const db = (await connectDB).db('user');
-  const data = await db.collection('userinfo').findOne({email : sessioncookie.user.email})
-  console.log(data)
   if(!sessioncookie){
     redirect('/login')
   }
+  const db = (await connectDB).db('user');
+  let user = await db.collection('userinfo').findOne({email : sessioncookie.user.email})
+ 
+  
 
-  let user;
+  
   if(sessioncookie){
    user._id = user._id.toString()
   }else{
