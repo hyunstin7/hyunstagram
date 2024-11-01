@@ -67,9 +67,7 @@ export default function SearchBar({ users, myinfo }) {
         }
     }, [text]);
 
-    useEffect(() => {
-        console.log(openCurrent, '최근항목불리언')
-    }, [openCurrent])
+
 
 
 
@@ -88,7 +86,7 @@ export default function SearchBar({ users, myinfo }) {
                             setOpenResult(false)
                         }}
                         onFocus={(e) => {
-                            console.log(e.currentTarget.value, '최근검색텍스트'); if (e.currentTarget.value) { setOpenCurrent(false) } else {
+                         if (e.currentTarget.value) { setOpenCurrent(false) } else {
                                 setOpenCurrent(true)
                             }
                         }}

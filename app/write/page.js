@@ -269,7 +269,7 @@ export default function Write({user}) {
     return (
 
 
-        <div className="ds" style={{ width: '100%', overflow: 'hidden', height: 'calc(100vh - 55px)',position:'relative', background : '#000', display:'flex',alignItems:'center',flexDirection:'column' }}>
+        <div className="ds" style={{ width: '100%', overflow: 'hidden', height: 'calc(100vh - 55px)',position:'relative', background : '#000', display:'flex',flexDirection:'column', alignItems:'center' }}>
 
             {
                 selectedFiles.length > 0 ?
@@ -317,7 +317,7 @@ export default function Write({user}) {
                 processNum == 1 &&
                 <div
                     className="seleted-img-wrap"
-                    style={{ display: 'flex', flexWrap: 'wrap', position: 'relative', height: 'calc(100vw - 80px)' }}>
+                    style={{ display: 'flex', flexWrap: 'wrap', position: 'relative', height: 'calc(100vw - 80px)', width: 'calc(100vw - 80px)' }}>
                     {
                         selectedFiles.map((a, i) => {
                             let d = ''
@@ -449,7 +449,9 @@ export default function Write({user}) {
 
 
                 openFilter == 0 &&
-                <div style={{ position: 'fixed', top: `${openFilter}%`, transition: '.2s 0.1s ease-out', background: '#000', width: '100%', height: '100%' }}>
+                <div style={{ position: 'fixed', top: `${openFilter}%`, transition: '.2s 0.1s ease-out', background: '#000', width: '100%', height: '100%', display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'center' }}>
+                    <div style={{display:'flex',justifyContent:'center',alignItems:'center', flexDirection:'column'
+                    }}>
                     <div className="write-nav" style={{ position: 'relative', display: 'flex', alignItems: 'center', height: '50px', width: '100vw', width:'100%' }}>
                         <img src="https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/reject.png" style={{width:'25px'}} onClick={() => {
                             setOpenfilter(100)
@@ -497,11 +499,12 @@ export default function Write({user}) {
                             </div>
                         </div>
                     </div>
-
+                    </div>
+                            <div style={{display:'flex',flexDirection:'column',paddingBottom:'30px'}}>
                     {
                         filterBtn == 'filter' &&
-                        <div className="p2-slider-filter-slide-wrap" style={{ marginTop: '100px' }}>
-                            <div className="p2-slider-filter-slide" style={{ display: 'flex', overflowX: 'scroll' }}>
+                        <div className="p2-slider-filter-slide-wrap" style={{ marginBottom: '50px' }}>
+                            <div className="p2-slider-filter-slide" style={{ display: 'flex', overflowX: 'scroll', width:'100vw' }}>
                                 {allFilter.map((t, k) => (
                                     <div className={"p2-change-all-filter-slider " + t} key={k} onClick={() => {
                                         let copy = [...filter];
@@ -523,7 +526,7 @@ export default function Write({user}) {
 
                     {
                         filterBtn == 'filter' &&
-                        <div className="p2-filter-btn-wrap" style={{ display: 'flex', width: '100vw', padding: '0 20px', justifyContent: 'space-between', position: 'absolute', bottom: '30px' }}>
+                        <div className="p2-filter-btn-wrap" style={{ display: 'flex', width: '100vw', padding: '0 20px', justifyContent: 'space-between' }}>
                             <button onClick={() => { setFilterBtn(`correct${filterNum}`) }}>수정</button>
                             <button onClick={() => {
                                 setOpenfilter(100);
@@ -532,7 +535,7 @@ export default function Write({user}) {
                         </div>
 
                     }
-
+</div>
                     {
                         selectedFiles.map((a, i) =>
                             <Correct
@@ -576,7 +579,7 @@ export default function Write({user}) {
 
             }
             {
-                processNum == 3 && <div className="p-20">
+                processNum == 3 && <div className="p-20" style={{width:'100%'}}>
                     <div className="write-nav" style={{position :'relative', display:'flex', alignItems: 'center', padding : 0}}>
                     <img src="https://hyunstagram.s3.ap-northeast-2.amazonaws.com/hyunstagram/back.png" style={{width:'25px'}} onClick={() => {
                         setProcessNum(2);
@@ -615,7 +618,7 @@ export default function Write({user}) {
                         <h4>글작성페이지</h4>
                         <textarea wrap="physical" id="content" type="text" placeholder="문구를 작성하세요..." rows={5} style={{ padding: '5px' }} onChange={(e) => { setContent(e.target.value) }} />
                         <button style={{ marginTop : '10px', padding :'10px 0', width:'100%', background: '#295ce9'}} type="submit" onClick={() => {
-                            if (document.getElementById('content').value == '') { alert('상세내용을 입력해주세요') }
+                            if (document.getElementById('content').value == '') { alert('문구를 입력해주세요') }
                             handleUpload()
                         }}>업로드하기</button>
                     </div>

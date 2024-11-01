@@ -63,9 +63,9 @@ export default function Correct({
     },[])
 
     return (
-        <div className={'correct-box correct-box' + i} style={{ display: 'none', position: 'absolute', left: '50%', transform: 'translate3d(-50%,0,0)', bottom: '30px' }}>
+        <div className={'correct-box correct-box' + i} style={{ display: 'none', paddingBottom : '30px'}}>
             <div className={'correct-wrap' + i}>
-                <div className="correct-slide" style={{ display: 'flex', width: '100vw', padding: '0 20px', justifyContent: 'space-between', position: 'absolute', overflowX: 'scroll', overflowY: 'hidden', height: 'max-content', marginTop: '-220px' }}>
+                <div className="correct-slide" style={{ display: 'flex', width: '100vw', padding: '0 20px', justifyContent: 'space-between', overflowX: 'scroll', overflowY: 'hidden', height: 'max-content', marginBottom: '50px' }}>
                     {
                         allCorrection.map((a, t) =>
                             <div key={t} style={{ margin: '0 10px', height: 'max-content' }} onClick={() => {

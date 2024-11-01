@@ -39,7 +39,7 @@ export const authOptions = {
           };
         } catch (error) {
           console.log('에러사유 : ', error);
-          throw new Error('인증 중 오류가 발생했습니다');
+          throw new Error('이메일 혹은 비밀번호가 틀렸습니다');
         }
       }
     })
@@ -53,12 +53,6 @@ export const authOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.email = user.email;
-        token.name = user.name;
-        token.image = user.image;
-        token.follower = user.follower;
-        token.following = user.following;
-        token.bookmark = user.bookmark;
-        token.story = user.story;
       }
       return token;
     },
@@ -66,12 +60,6 @@ export const authOptions = {
       if (token) {
         session.user = {
           email: token.email,
-          name: token.name,
-          image: token.image,
-          follower: token.follower,
-          following: token.following,
-          bookmark: token.bookmark,
-          story: token.story
         };
       }
       return session;

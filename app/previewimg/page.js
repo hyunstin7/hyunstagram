@@ -42,7 +42,7 @@ export default function PreviewImg({ a, i, d, SetPos, posCopy, pos }) {
     }
 
     return (
-        <div className="img-wrap" style={{ width: 'calc(100vw - 80px)', maxWidth: '768px', maxHeight: '768px', height: 'calc(100vw - 80px)', margin: '0 40px', position: 'absolute', overflow: 'hidden' }} >
+        <div className="img-wrap" style={{ width: 'calc(100vw - 80px)', maxWidth: '768px', maxHeight: '768px', height: 'calc(100vw - 80px)', position: 'absolute', overflow: 'hidden',top :0, left:0 }} >
             <img draggable="true" className={d + ' selected-img selected-img' + i} src={a.preview} alt={`Preview ${i}`} style={{ position: 'absolute', width: '100%', top: `${endPosY}px`, transform: 'translate3d(0,-50%,0)' }}
                 onTouchStart={TouchStart}
                 onTouchMove={TouchMove}
