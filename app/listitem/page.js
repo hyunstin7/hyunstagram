@@ -349,11 +349,14 @@ const ListItem = forwardRef(({ a, session, i },ref) => {
                             >팔로우<span style={{display:'none'}}>{user.following.length}</span></button> : null
 
                     }
-                    <h2 onClick={() => { if (menu == false) { setMenu(true) } else { setMenu(false) } }} style={{ cursor: 'pointer' }}>···</h2>
+                    {
+                        session.user.email !== a.author ? null : <h2 onClick={() => { if (menu == false) { setMenu(true) } else { setMenu(false) } }} style={{ cursor: 'pointer' }}>···</h2>
+                    }
+                    
                     {
                         session &&
-                            session.user.email !== a.author ? null : menu ? <div style={{ width: 'max-content', display: 'flex', flexDirection: 'column', background: '#000', justifyContent: 'center', alignItems: 'center', position: 'absolute', top: '100%', right: '0' }}>
-                                <Link href={`/edit/${a._id}`}>수정하기</Link>
+                            session.user.email !== a.author ? null : menu ? <div style={{ width: 'max-content', display: 'flex', flexDirection: 'column', background: '#295ce9', justifyContent: 'center', alignItems: 'center', position: 'absolute', top: '100%', right: '-10px', borderRadius :'5px'}}>
+                                <Link href={`/edit/${a._id}`} style={{fontSize : '12px', padding : '5px 10px'}}>수정하기</Link>
                                 <button onClick={async (e) => {
                                     fetch(`/api/delete/${a._id} `, {
                                         method: 'DELETE',
@@ -366,7 +369,7 @@ const ListItem = forwardRef(({ a, session, i },ref) => {
                                                 e.target.closest('.list-item').style.display = "none"
                                             }, 1000)
                                         })
-                                }}>삭제하기</button>
+                                }} style={{fontSize : '12px', padding : '5px 10px', borderTop:'solid 1px #fff', borderRadius :'0px 0px 5px 5px', background :'#295ce9'}}>삭제하기</button>
 
                             </div> : null
                     }
