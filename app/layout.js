@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import Link from "next/link";
 import { connectDB } from "@/util/database";
+import AuthProvider from "@/util/SessionProvider";
 
 
 
@@ -31,7 +32,9 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}> 
+        <AuthProvider>
         {children}
+        </AuthProvider>
         
         {
           sessioncookie &&
