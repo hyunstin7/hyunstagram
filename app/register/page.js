@@ -28,7 +28,7 @@ export default function Register() {
   const [processNum, setProcessNum ] = useState(0)
   const [name, setName ] = useState('')
   const [error, setError] = useState('')
-  const [selectedFile,setSelectedFile] = useState({})
+  const [selectedFile,setSelectedFile] = useState({name : 'profileimg.png'})
   const [openRegisterImg,setOpenRegisterImg] = useState(false)
   const [key, setKey] = useState('profileimg.png')
 
