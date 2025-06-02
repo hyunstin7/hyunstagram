@@ -13,7 +13,7 @@ export default async function Profile(props){
     const db = (await connectDB).db('user')
     const user = await db.collection('userinfo').findOne({name : props.params.id})
     return(
-        <div style={{width:'100%'}}>
+        <div style={{width:'100%', height:'100vh', overflowY:'scroll'}}>
             <ProfileHeader user={user} session={session}/>
             <ProfileInfo user={user} session={session}/>
             <ProfileSetting user={user} session={session}/>
